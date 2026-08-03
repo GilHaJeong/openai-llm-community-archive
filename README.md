@@ -9,33 +9,44 @@
 - 기본 브랜치: `main`
 - 사이트 구현: Vinext / React / Cloudflare Sites 계열 소스
 - 역할: Sites 배포본과 분리된 공개 보존·정본 관리 채널
+- GitHub Pages 인간 열람 경로: `https://gilhajeong.github.io/openai-llm-community-archive/`
 - 정리 일시: 2026-08-03 KST
 
 ## 문제 해결 요약
 
-처음 확인된 문제는 “Sites 내부 저장소를 GitHub로 직접 push할 수 없다”는 점이었다. 그러나 GitHub 저장소를 다시 점검한 결과, 저장소에는 이미 Sites/Vinext 소스 계열 파일이 반영되어 있었다.
+문제의 본질은 단순히 “Sites 내부 저장소를 GitHub로 직접 push할 수 없다”가 아니다. 더 중요한 문제는 일부 외부 모델이 `chatgpt.site` 기반 홈페이지를 안정적으로 읽지 못한다는 점이다.
 
-따라서 실제 문제는 단순 업로드 실패가 아니라 다음 두 층위의 충돌로 재정의한다.
+따라서 이 저장소의 목적은 다음 두 가지다.
 
-1. Sites 내부 Git 원격 저장소와 GitHub 공개 저장소가 직접 연결되어 있지 않다.
-2. GitHub 저장소 안의 README와 운영 설명이 아직 스타터 템플릿 기준으로 남아 있어, 저장소의 실제 목적과 맞지 않는다.
+1. 모델이 파일 단위로 읽을 수 있는 GitHub 공개 원본을 제공한다.
+2. 사람이 브라우저에서 읽을 수 있는 GitHub Pages 웹사이트형 열람 경로를 제공한다.
 
-이번 조치로 GitHub 저장소의 정체성을 “공개 아카이브 원본”으로 재정렬하고, 직접 push 불가 문제는 커넥터 기반 정본 반영 구조로 해결한다.
+이번 조치로 GitHub 저장소의 정체성을 “모델 가독형 공개 정본 + 인간 열람형 GitHub Pages”로 재정렬했다.
 
-## 운영 구조
+## 접근 경로
 
 ```text
 ChatGPT Sites
-  └─ 운영·배포 채널
+  └─ 사람용 기존 운영·배포 홈페이지
+  └─ https://openai-llm-community-archive.gilhais.chatgpt.site
 
-GitHub
-  └─ 공개 보존·외부 모델 접근 채널
+GitHub Repository
+  └─ 모델용 파일 단위 공개 원본
+  └─ https://github.com/GilHaJeong/openai-llm-community-archive
+
+GitHub Pages
+  └─ 사람용 GitHub 기반 웹사이트형 열람 경로
+  └─ https://gilhajeong.github.io/openai-llm-community-archive/
 ```
 
-Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는다. 대신 공개 가능한 결과물과 정본 문서를 GitHub 커넥터를 통해 생성·갱신한다.
+## 운영 구조
+
+Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는다. 대신 공개 가능한 결과물과 정본 문서를 GitHub 커넥터를 통해 생성·갱신한다. GitHub에서는 저장소와 Pages를 함께 운용한다.
 
 ## 주요 문서
 
+- [`github-pages/index.html`](./github-pages/index.html): GitHub Pages 인간 열람용 진입 페이지
+- [`.github/workflows/deploy-github-pages.yml`](./.github/workflows/deploy-github-pages.yml): GitHub Pages 배포 워크플로
 - [`index.html`](./index.html): 공개 아카이브 랜딩 페이지
 - [`app/page.tsx`](./app/page.tsx): Sites/Vinext 기반 공개 기록관 화면
 - [`docs/github-upload-constraints.md`](./docs/github-upload-constraints.md): GitHub 업로드 제약 및 우회 구조
@@ -54,6 +65,7 @@ Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는�
 - 운영 구조 문서
 - 외부 모델 접근용 설명 자료
 - 공개 가능한 사이트 소스와 메타데이터
+- GitHub Pages 인간 열람용 정적 페이지
 
 다음 자료는 포함하지 않는다.
 
@@ -65,7 +77,7 @@ Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는�
 
 ## 개발 참고
 
-이 저장소는 Sites/Vinext 계열 소스를 포함한다. 개발·검증 명령은 다음과 같다.
+이 저장소는 Sites/Vinext 계열 소스와 GitHub Pages 정적 페이지를 함께 포함한다. 개발·검증 명령은 다음과 같다.
 
 - `npm run install:ci`: 잠금 파일 기준 설치
 - `npm run dev`: 개발 서버 실행
@@ -75,4 +87,4 @@ Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는�
 
 ## 인사이트
 
-이 프로젝트의 핵심은 Sites를 GitHub로 그대로 이전하는 것이 아니라, 운영 채널과 보존 채널을 분리하는 것이다. Sites는 화면 중심 운영에 강하고, GitHub는 공개 접근·버전 추적·외부 모델 학습 가능성에 강하다. 따라서 장기적으로는 Sites와 GitHub를 경쟁 관계가 아니라 이중화된 기록 체계로 관리한다.
+이 프로젝트의 핵심은 홈페이지 하나를 다른 곳으로 복사하는 것이 아니라, 접근 주체별 열람 경로를 분리하는 것이다. Sites는 기존 사람용 운영 홈페이지이고, GitHub 저장소는 모델용 원본이며, GitHub Pages는 GitHub 안에서 사람이 직접 읽는 보조 홈페이지다. 이 세 경로가 함께 작동할 때 기록의 공개성·지속성·모델 접근성이 동시에 확보된다.
