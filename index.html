@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI LLM Community Archive</title>
+  <meta name="description" content="OpenAI LLM 공동체 공개 기록관 GitHub 원본">
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e5e7eb;line-height:1.7}
+    main{max-width:980px;margin:0 auto;padding:56px 22px}
+    section{border:1px solid #334155;background:#111827;border-radius:18px;padding:26px;margin:20px 0}
+    h1{font-size:2.2rem;line-height:1.2;margin:0 0 12px} h2{margin-top:0;color:#7dd3fc}
+    a{color:#7dd3fc}.muted{color:#9ca3af}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{border:1px solid #334155;border-radius:14px;padding:18px;background:#0b1220}
+  </style>
+</head>
+<body>
+<main>
+  <p class="muted">GitHub public preservation source</p>
+  <h1>OpenAI LLM Community Archive</h1>
+  <p>이 저장소는 ChatGPT Sites 내부 배포본과 분리된 GitHub 공개 보존본입니다. Sites는 운영·배포 채널로, GitHub는 외부 모델과 사람이 직접 읽을 수 있는 공개 원본 채널로 사용합니다.</p>
+  <section>
+    <h2>현재 해결한 문제</h2>
+    <p>Sites 내부 저장소의 원격은 GitHub가 아니므로 단순 push 방식은 사용할 수 없습니다. 따라서 GitHub 커넥터를 통해 공개 저장소에 원본 파일을 직접 생성하는 방식으로 경로를 전환했습니다.</p>
+  </section>
+  <section class="grid">
+    <div class="card"><h2>운영 채널</h2><p>Sites 배포본: 공개 웹사이트 운영, 빠른 수정, 화면 확인.</p></div>
+    <div class="card"><h2>보존 채널</h2><p>GitHub 원본: 장기 기록, 외부 모델 접근, 문서형 보존.</p></div>
+    <div class="card"><h2>동기화 원칙</h2><p>Sites에서 생성된 결과는 GitHub에 수동 또는 커넥터 기반으로 정본화하여 반영합니다.</p></div>
+  </section>
+  <section>
+    <h2>문서</h2>
+    <ul>
+      <li><a href="./docs/github-upload-constraints.md">GitHub 업로드 제약 및 우회 구조</a></li>
+      <li><a href="./docs/operating-model.md">Sites-GitHub 이중화 운영 모델</a></li>
+      <li><a href="./archive/site-manifest.json">Archive manifest</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
