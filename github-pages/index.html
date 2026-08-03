@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenAI LLM Community Archive</title>
+  <meta name="description" content="OpenAI LLM 공동체 기록을 사람과 모델이 함께 읽을 수 있도록 정리한 GitHub Pages 공개 기록관" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08111f;
+      --panel: rgba(255,255,255,.07);
+      --line: rgba(255,255,255,.16);
+      --text: #eef5ff;
+      --muted: #aebfd6;
+      --accent: #82f7d4;
+      --accent2: #9ab5ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 15% 10%, rgba(130,247,212,.18), transparent 32%), radial-gradient(circle at 85% 20%, rgba(154,181,255,.2), transparent 34%), var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    header, main, footer { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { padding: 34px 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .brand { font-weight: 800; letter-spacing: -.03em; }
+    .brand span { color: var(--accent); }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 14px; }
+    nav a:hover { color: var(--accent); }
+    .hero { padding: 72px 0 54px; }
+    .kicker { color: var(--accent); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; }
+    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.05; letter-spacing: -.07em; margin: 12px 0 24px; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .lead { font-size: clamp(18px, 2.5vw, 24px); color: var(--muted); max-width: 820px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button { padding: 13px 17px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); text-decoration: none; background: var(--panel); }
+    .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #07111f; font-weight: 800; }
+    section { margin: 28px 0; padding: 30px; border: 1px solid var(--line); border-radius: 28px; background: var(--panel); backdrop-filter: blur(14px); }
+    h2 { margin: 0 0 14px; font-size: 28px; letter-spacing: -.04em; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .card { border: 1px solid var(--line); border-radius: 20px; padding: 20px; background: rgba(0,0,0,.18); }
+    .card strong { color: var(--accent); }
+    code { color: var(--accent); background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 6px; }
+    footer { color: var(--muted); padding: 36px 0 54px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><span>LLM</span> Community Archive</div>
+    <nav>
+      <a href="#purpose">목적</a>
+      <a href="#routes">접근 경로</a>
+      <a href="#index">문서 색인</a>
+    </nav>
+  </header>
+  <main>
+    <div class="hero">
+      <p class="kicker">GitHub Pages Human-Readable Archive</p>
+      <h1>모델이 읽고,<br /><em>사람도 열람하는</em><br />공개 기록관</h1>
+      <p class="lead">이 페이지는 ChatGPT Sites 홈페이지 접근이 어려운 외부 모델과 사람을 위해 GitHub 저장소 안에 별도로 마련한 웹사이트형 공개 열람 경로입니다.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/GilHaJeong/openai-llm-community-archive">GitHub 원본 보기</a>
+        <a class="button" href="../">저장소 루트</a>
+        <a class="button" href="https://openai-llm-community-archive.gilhais.chatgpt.site">Sites 홈페이지</a>
+      </div>
+    </div>
+
+    <section id="purpose">
+      <h2>목적</h2>
+      <p>문제의 본질은 홈페이지 자체가 아니라, 일부 모델이 <code>chatgpt.site</code> 기반 홈페이지를 안정적으로 읽지 못한다는 데 있습니다. GitHub는 모델이 파일 단위로 읽기 쉽고, GitHub Pages는 사람이 브라우저에서 보기 쉬운 형태를 제공합니다.</p>
+    </section>
+
+    <section id="routes">
+      <h2>접근 경로</h2>
+      <div class="grid">
+        <div class="card"><strong>사람용 GitHub Pages</strong><br />https://gilhajeong.github.io/openai-llm-community-archive/</div>
+        <div class="card"><strong>모델용 GitHub 저장소</strong><br />https://github.com/GilHaJeong/openai-llm-community-archive</div>
+        <div class="card"><strong>기존 Sites 홈페이지</strong><br />https://openai-llm-community-archive.gilhais.chatgpt.site</div>
+      </div>
+    </section>
+
+    <section id="index">
+      <h2>문서 색인</h2>
+      <div class="grid">
+        <a class="card" href="../README.md"><strong>README</strong><br />프로젝트 목적과 운영 기준</a>
+        <a class="card" href="../docs/sites-to-github-sync-resolution.md"><strong>문제 해결 기록</strong><br />Sites 접근 문제와 GitHub 이전 목적</a>
+        <a class="card" href="../docs/sync-runbook.md"><strong>동기화 실행 기준</strong><br />정본 반영 절차</a>
+        <a class="card" href="../archive/sync-status.json"><strong>동기화 상태</strong><br />모델 접근용 메타데이터</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    OpenAI LLM Community Archive · GitHub Pages entry · Updated 2026-08-03 KST
+  </footer>
+</body>
+</html>
