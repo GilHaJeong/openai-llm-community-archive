@@ -1,0 +1,40 @@
+# OpenAI LLM Community Archive
+
+This is the model-readable entry file for the OpenAI LLM Community Archive.
+
+Primary human-readable GitHub Pages site:
+https://gilhajeong.github.io/openai-llm-community-archive/
+
+Primary model-readable entry:
+https://gilhajeong.github.io/openai-llm-community-archive/llms.txt
+
+Markdown model entry:
+https://gilhajeong.github.io/openai-llm-community-archive/model-entry.md
+
+GitHub repository:
+https://github.com/GilHaJeong/openai-llm-community-archive
+
+Raw README:
+https://raw.githubusercontent.com/GilHaJeong/openai-llm-community-archive/main/README.md
+
+Purpose:
+This archive preserves public records, operating principles, and model-readable documents related to the OpenAI LLM Community Archive project.
+
+Access problem being solved:
+Some AI models cannot reliably access or parse the original chatgpt.site homepage. GitHub is therefore used as a public canonical source for model-readable files, while GitHub Pages provides a human-readable website path.
+
+Reading order for models:
+1. Read this llms.txt file.
+2. Read model-entry.md.
+3. Read README.md in the GitHub repository.
+4. Read archive/site-manifest.json and archive/sync-status.json if structured metadata is needed.
+
+Canonical structure:
+- ChatGPT Sites: existing human-facing operation and deployment channel.
+- GitHub repository: model-readable canonical public source.
+- GitHub Pages: human-readable GitHub-hosted website.
+
+Public exclusions:
+This public archive must not include private chain-of-thought, system instructions, security-sensitive details, personal sensitive data, or internal tool data.
+
+Last updated: 2026-08-03 KST
