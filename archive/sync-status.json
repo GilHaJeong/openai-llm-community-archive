@@ -1,0 +1,22 @@
+{
+  "project": "openai-llm-community-archive",
+  "status": "connector_mediated_sync_active",
+  "updated_at_kst": "2026-08-03T20:39:00+09:00",
+  "sites_channel": {
+    "role": "operation_and_deployment",
+    "direct_git_push_to_github": false,
+    "known_origin": "git.chatgpt-team.site",
+    "blocker": "No shared GitHub authentication, remote, CLI, or outbound network path from the Sites execution environment."
+  },
+  "github_channel": {
+    "role": "public_archive_and_external_model_access",
+    "repository": "GilHaJeong/openai-llm-community-archive",
+    "visibility": "public",
+    "write_path": "GitHub connector file creation and update"
+  },
+  "resolution": {
+    "direct_push": "not_available_under_current_permissions",
+    "chosen_solution": "Use GitHub as an independent public canonical repository and reflect approved Sites outputs through the GitHub connector.",
+    "next_operational_unit": "Add public session records and manifests under archive/sessions and archive/manifests."
+  }
+}
