@@ -1,7 +1,7 @@
 {
   "project": "openai-llm-community-archive",
-  "status": "github_pages_human_readable_entry_configured",
-  "updated_at_kst": "2026-08-03T20:51:00+09:00",
+  "status": "github_pages_deploy_trigger_commit_pushed",
+  "updated_at_kst": "2026-08-03T21:20:00+09:00",
   "problem_definition": "Some external models cannot reliably access or read the chatgpt.site homepage, so GitHub must provide both model-readable files and a human-readable website path.",
   "sites_channel": {
     "role": "existing_human_facing_operation_and_deployment",
@@ -21,11 +21,12 @@
     "expected_url": "https://gilhajeong.github.io/openai-llm-community-archive/",
     "source_path": "github-pages",
     "workflow": ".github/workflows/deploy-github-pages.yml",
-    "status": "workflow_added"
+    "settings_source": "GitHub Actions",
+    "status": "deploy_trigger_commit_pushed_after_pages_source_saved"
   },
   "resolution": {
     "direct_push": "not_available_under_current_permissions",
     "chosen_solution": "Use GitHub repository for model-readable canonical files and GitHub Pages for human-readable GitHub-hosted browsing.",
-    "next_operational_unit": "Confirm Pages deployment status after GitHub Actions runs and then add public session records under archive/sessions."
+    "next_operational_unit": "Open Actions and confirm the Deploy GitHub Pages workflow reaches a green check, then verify the public Pages URL."
   }
 }
