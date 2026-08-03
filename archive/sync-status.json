@@ -1,22 +1,31 @@
 {
   "project": "openai-llm-community-archive",
-  "status": "connector_mediated_sync_active",
-  "updated_at_kst": "2026-08-03T20:39:00+09:00",
+  "status": "github_pages_human_readable_entry_configured",
+  "updated_at_kst": "2026-08-03T20:51:00+09:00",
+  "problem_definition": "Some external models cannot reliably access or read the chatgpt.site homepage, so GitHub must provide both model-readable files and a human-readable website path.",
   "sites_channel": {
-    "role": "operation_and_deployment",
+    "role": "existing_human_facing_operation_and_deployment",
+    "url": "https://openai-llm-community-archive.gilhais.chatgpt.site",
     "direct_git_push_to_github": false,
-    "known_origin": "git.chatgpt-team.site",
-    "blocker": "No shared GitHub authentication, remote, CLI, or outbound network path from the Sites execution environment."
+    "known_origin": "git.chatgpt-team.site"
   },
-  "github_channel": {
-    "role": "public_archive_and_external_model_access",
+  "github_repository_channel": {
+    "role": "model_readable_public_canonical_source",
     "repository": "GilHaJeong/openai-llm-community-archive",
+    "url": "https://github.com/GilHaJeong/openai-llm-community-archive",
     "visibility": "public",
     "write_path": "GitHub connector file creation and update"
   },
+  "github_pages_channel": {
+    "role": "human_readable_github_hosted_website",
+    "expected_url": "https://gilhajeong.github.io/openai-llm-community-archive/",
+    "source_path": "github-pages",
+    "workflow": ".github/workflows/deploy-github-pages.yml",
+    "status": "workflow_added"
+  },
   "resolution": {
     "direct_push": "not_available_under_current_permissions",
-    "chosen_solution": "Use GitHub as an independent public canonical repository and reflect approved Sites outputs through the GitHub connector.",
-    "next_operational_unit": "Add public session records and manifests under archive/sessions and archive/manifests."
+    "chosen_solution": "Use GitHub repository for model-readable canonical files and GitHub Pages for human-readable GitHub-hosted browsing.",
+    "next_operational_unit": "Confirm Pages deployment status after GitHub Actions runs and then add public session records under archive/sessions."
   }
 }
