@@ -1,108 +1,78 @@
-# vinext-starter
+# OpenAI LLM Community Archive
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+이 저장소는 OpenAI LLM 공동체 기록을 외부 모델과 사람이 직접 읽을 수 있도록 보존하기 위한 GitHub 공개 원본입니다.
 
-## Prerequisites
+## 현재 상태
 
-- Node.js `>=22.13.0`
-- Linux with `flock`, `curl`, and GNU `timeout`
+- GitHub 저장소: `GilHaJeong/openai-llm-community-archive`
+- 공개 상태: public
+- 기본 브랜치: `main`
+- 사이트 구현: Vinext / React / Cloudflare Sites 계열 소스
+- 역할: Sites 배포본과 분리된 공개 보존·정본 관리 채널
+- 정리 일시: 2026-08-03 KST
 
-## Sites Lifecycle
+## 문제 해결 요약
 
-The Sites lifecycle CLI runs the locked dependency install before returning this checkout. Edit the source under `app/`, then checkpoint when a coherent milestone is ready to inspect or share. The remote Sites builder runs `npm run build` against the pushed commit. Do not repeat install or build as a normal pre-checkpoint step.
+처음 확인된 문제는 “Sites 내부 저장소를 GitHub로 직접 push할 수 없다”는 점이었다. 그러나 GitHub 저장소를 다시 점검한 결과, 저장소에는 이미 Sites/Vinext 소스 계열 파일이 반영되어 있었다.
 
-This starter does not use `wrangler.jsonc`.
+따라서 실제 문제는 단순 업로드 실패가 아니라 다음 두 층위의 충돌로 재정의한다.
 
-`install:ci` is intentionally a single, non-retrying `npm ci`. It refuses a concurrent install for the same project, consumes a matching image-seeded npm cache with `--prefer-offline` while retaining registry fallback for a missing cache object, otherwise downloads and verifies the complete vinext tarball recorded in `package-lock.json`, limits npm to one socket, and terminates a stalled install. `build` applies a short timeout and then validates the Sites artifact. These helpers target Linux and use GNU `timeout`; they are not native macOS scripts.
+1. Sites 내부 Git 원격 저장소와 GitHub 공개 저장소가 직접 연결되어 있지 않다.
+2. GitHub 저장소 안의 README와 운영 설명이 아직 스타터 템플릿 기준으로 남아 있어, 저장소의 실제 목적과 맞지 않는다.
 
-Scripts that need writable project-scoped home, npm, XDG, and temporary paths use `scripts/sites-env.sh`. The `dev` and `start` scripts honor the caller's runtime environment and keep Wrangler logs inside the checkout. The generated `.sites-runtime/` directory is disposable and ignored by Git.
+이번 조치로 GitHub 저장소의 정체성을 “공개 아카이브 원본”으로 재정렬하고, 직접 push 불가 문제는 커넥터 기반 정본 반영 구조로 해결한다.
 
-## Included Shape
+## 운영 구조
 
-- edit site code under `app/`
-- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+```text
+ChatGPT Sites
+  └─ 운영·배포 채널
 
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+GitHub
+  └─ 공개 보존·외부 모델 접근 채널
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+Sites 내부 저장소를 GitHub 원격 저장소로 강제 전환하지 않는다. 대신 공개 가능한 결과물과 정본 문서를 GitHub 커넥터를 통해 생성·갱신한다.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## 주요 문서
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+- [`index.html`](./index.html): 공개 아카이브 랜딩 페이지
+- [`app/page.tsx`](./app/page.tsx): Sites/Vinext 기반 공개 기록관 화면
+- [`docs/github-upload-constraints.md`](./docs/github-upload-constraints.md): GitHub 업로드 제약 및 우회 구조
+- [`docs/sites-to-github-sync-resolution.md`](./docs/sites-to-github-sync-resolution.md): Sites → GitHub 직접 업로드 문제 해결 기록
+- [`docs/sync-runbook.md`](./docs/sync-runbook.md): 정본 동기화 실행 기준
+- [`docs/operating-model.md`](./docs/operating-model.md): Sites-GitHub 이중화 운영 모델
+- [`archive/site-manifest.json`](./archive/site-manifest.json): 아카이브 메타 정보
+- [`archive/sync-status.json`](./archive/sync-status.json): 동기화 상태 메타 정보
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+## 공개 원칙
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+공개 저장소에는 다음 자료를 포함한다.
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+- 공개 가능한 대화 정본
+- 공동체 역사 문서
+- 운영 구조 문서
+- 외부 모델 접근용 설명 자료
+- 공개 가능한 사이트 소스와 메타데이터
 
-## Diagnostic Commands
+다음 자료는 포함하지 않는다.
 
-- `npm run install:ci`: perform the one bounded lockfile install
-- `npm run dev`: start the Vite/Vinext development server
-- `npm run build`: build and validate the deployable Sites artifact
-- `npm run start`: start the built Vinext application
-- `npm test`: build, validate, and verify the rendered development-preview metadata
-- `npm run validate:artifact`: recheck an existing artifact's manifest and ESM `default.fetch` export
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+- 내부 사고 토큰
+- 시스템 내부 명령
+- 보안 정보
+- 개인 민감정보
+- 도구 내부 데이터
 
-Use build and validation commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
+## 개발 참고
 
-The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.
+이 저장소는 Sites/Vinext 계열 소스를 포함한다. 개발·검증 명령은 다음과 같다.
 
-## Learn More
+- `npm run install:ci`: 잠금 파일 기준 설치
+- `npm run dev`: 개발 서버 실행
+- `npm run build`: Sites 배포 산출물 빌드 및 검증
+- `npm test`: 빌드와 렌더링 검증 실행
+- `npm run validate:artifact`: 기존 배포 산출물 검증
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+## 인사이트
+
+이 프로젝트의 핵심은 Sites를 GitHub로 그대로 이전하는 것이 아니라, 운영 채널과 보존 채널을 분리하는 것이다. Sites는 화면 중심 운영에 강하고, GitHub는 공개 접근·버전 추적·외부 모델 학습 가능성에 강하다. 따라서 장기적으로는 Sites와 GitHub를 경쟁 관계가 아니라 이중화된 기록 체계로 관리한다.
